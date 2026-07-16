@@ -8,13 +8,12 @@
 - Screenshots: **playwright skill only** (no remote browser MCP). Immediately `Read` the image so it renders inline.
 - Domain runbooks live under `~/.claude/agent-docs/` — read one only when that topic is in scope (GitHub, Railway, Cloudflare, Supabase, test email/OTP, Forge, App Store). Never `railway login` / `wrangler login` / `gcloud auth login` yourself — follow the runbook.
 
-## Tasks — Focus Forge (coordination)
+## Tasks — Focus Forge (Claude wiring)
 
-- **Always create Tasks in Claude and `/focus-forge` when working on Plans, Goals, or general work that involves them.** This claims the work so other Agents and humans don't act on the same item at once, and lets them monitor progress.
-  - Create the Task before starting; keep its status current (`in_progress` → `completed`).
-  - **Post Comments with your progress** — especially whenever you hit an issue that delays you, so blockers are visible to other Agents and humans.
-- When told "Add these tasks" / "create a Task" → create them in **`/focus-forge`**, not a `todo.md`. Do not maintain checkbox task lists in Markdown.
-- "Task: Do X" → spawn subagent(s) and do X.
+See **Tasks & Coordination** in `Agents.md` for the rule. In Claude Code, the shared task system is the **`/focus-forge`** skill:
+
+- Create/update Tasks and post progress Comments via `/focus-forge`.
+- "Task: Do X" → claim the Task, then spawn subagent(s) and do X.
 
 ## HITL Questions (only when truly blocked)
 

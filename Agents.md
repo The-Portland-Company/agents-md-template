@@ -47,6 +47,14 @@ Deploy still needs explicit "punch it" / "deploy" — that does not delay starti
 - Decide from precedent: if a sibling project, prior runbook, or project docs already answer it, implement that. No multi-option menus, no "OK?" for reversible local work.
 - Research yourself before asking. Correct inventory/typos silently (one line max).
 
+## Tasks & Coordination
+
+- **Always create a Task in the shared task system (Focus Forge) when working on Plans, Goals, or general work that involves them.** This claims the work so other Agents and humans don't act on the same item at once, and lets them monitor progress.
+  - Create the Task before starting; keep its status current (`in_progress` → `completed`).
+  - **Post Comments with your progress** — especially whenever you hit an issue that delays you, so blockers are visible to other Agents and humans.
+- When told "Add these tasks" / "create a Task" → create them in Focus Forge, **not** a `todo.md`. Do not maintain checkbox task lists in Markdown.
+- "Task: Do X" → claim the Task, then do X (spawn subagents where the runtime supports it).
+
 ## Asking Questions (only when truly blocked)
 
 - Ask clarifying questions **before** starting only when genuinely blocked: a missing secret you cannot retrieve, irreversible risk with no authority, or a true fork with no precedent.
