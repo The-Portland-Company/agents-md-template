@@ -1,0 +1,16 @@
+# GitLeaks config for agents-md-template.
+# Extends the built-in default ruleset; add project allowlists below.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+# Ignore obvious placeholder tokens used in docs/templates.
+regexes = [
+  '''\{See 1Password\}''',
+  '''\{See Supabase\}''',
+  '''(?i)your[-_]?(api[-_]?)?key[-_]?here''',
+]
+paths = [
+  '''readme\.md''',
+]

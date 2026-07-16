@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Scan staged changes for secrets with GitLeaks before every commit.
+# Enable once per clone:  git config core.hooksPath .githooks
+set -euo pipefail
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "gitleaks not installed — skipping secret scan (install: brew install gitleaks)." >&2
+  echo "Refusing to commit without a scan. Install gitleaks or run 'git commit --no-verify' to override." >&2
+  exit 1
+fi
+
+if ! gitleaks git --staged --redact --verbose; then
+  echo "" >&2
+  echo "GitLeaks found potential secrets in staged changes. Commit blocked." >&2
+  echo "Remove the secret, or add a false positive to .gitleaks.toml allowlist." >&2
+  exit 1
+fi

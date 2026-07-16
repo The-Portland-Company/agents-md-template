@@ -17,6 +17,17 @@ The split keeps one source of truth: shared principles live in `Agents.md`; only
 2. Delete or adapt any stack sections that don't apply — rules bind only when their stack (Supabase, Railway, `.env`, logs) is actually present (see **Scope & Precedence** in `Agents.md`).
 3. Set your deploy branch name and secrets/notification config where noted.
 
+## Secret scanning (GitLeaks)
+
+A version-controlled pre-commit hook scans staged changes for secrets with [GitLeaks](https://github.com/gitleaks/gitleaks) and blocks the commit if any are found. Enable it once per clone:
+
+```bash
+brew install gitleaks        # if not already installed
+git config core.hooksPath .githooks
+```
+
+Rules and allowlists live in `.gitleaks.toml`. Override a scan in a genuine false-positive with `git commit --no-verify`.
+
 ## Core coordination principles
 
 - **Respect pre-commit hooks and CI/CD** — never bypass without explicit human authorization.
