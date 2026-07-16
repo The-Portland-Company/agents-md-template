@@ -30,10 +30,6 @@ Use the blocking format only for real blockers (missing secret you can't retriev
 - **Numbering is continuous across the whole block, even when questions span multiple categories, subjects, or topics — never restart per section.** Group one: 1, 2; group two: 3, 4 (not 1, 2 again).
 - Never append `(yes/no)` — it's implied. Never pad with "I'll do it in seconds." Prefer one ask.
 
-## Notifications
-
-- "Notify me when done" → actually send an SMS to the configured number via the configured provider (don't just say you will). If no number/provider is configured, say you can't notify — don't pretend to send.
-
 ## Subagents & Verification
 
 - Spawn subagents for independent or parallel work; send concurrent agents in a single message so they run at once.

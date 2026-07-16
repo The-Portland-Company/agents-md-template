@@ -55,6 +55,42 @@ Deploy still needs explicit "punch it" / "deploy" — that does not delay starti
 - When told "Add these tasks" / "create a Task" → create them in Focus Forge, **not** a `todo.md`. Do not maintain checkbox task lists in Markdown.
 - "Task: Do X" → claim the Task, then do X (spawn subagents where the runtime supports it).
 
+## Notifications
+
+When asked to notify the human ("notify me when done," "text me," "let me know"), **actually send** — never just claim you did. If no channel is configured, say you can't notify.
+
+**Default recipient — the Apple Contacts "Me" card.** macOS Contacts designates exactly one contact as yourself (in Contacts: select your card → **Card ▸ Make This My Card**; the "me" card shows a silhouette badge). Read it at runtime — don't hardcode a number:
+
+```bash
+# Name of the Me card
+osascript -e 'tell application "Contacts" to get name of my card'
+# First phone number on the Me card (E.164-ish; strip spaces/() for APIs)
+osascript -e 'tell application "Contacts" to get value of item 1 of phones of my card'
+```
+
+**Primary channel — Bartok.** Autonomous comms agent. GitHub: <https://github.com/s3w47m88/bartok> (skill/API docs in `mcp/README.md`). Exposed to agents as a stdio **MCP server** with three tools — no new public network surface; each tool SSHes the droplet and runs the server-side helper:
+
+| Tool | Args | Action |
+| --- | --- | --- |
+| `bartok_text` | `to`, `message` | SMS from Bartok's Telnyx number (`+15034336772`) |
+| `bartok_email` | `to`, `subject`, `body` | Email from Bartok (replies route to Bartok's inbox) |
+| `bartok_call` | `to`, `say` | Live two-way phone call; Bartok speaks `say` first |
+
+- `to` accepts `"spencer"` (→ the Me number `+15036108759`) or any E.164 number; `bartok_email`'s `to` is an address.
+- Register once per runtime, e.g. Claude Code: `claude mcp add --scope user bartok -- node /Users/spencerhill/Sites/bartok/mcp/dist/index.js` (verify with `claude mcp list` → `✔ Connected`). Only local requirement is the SSH key `~/.ssh/id_ed25519_openclaw_mini`; all Telnyx/Resend keys stay server-side in the droplet's `orchestrator/.env`.
+
+**Fallback — Politogy Telnyx (direct API)** when Bartok is unavailable. Send SMS straight to the Telnyx Messaging API:
+
+```bash
+curl -s -X POST https://api.telnyx.com/v2/messages \
+  -H "Authorization: Bearer $TELNYX_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"from":"+1<politogy_telnyx_number>","to":"+15036108759","text":"<message>"}'
+```
+
+- API key + from-number live in 1Password (Politogy Telnyx vault). Optionally use `"messaging_profile_id"` instead of `"from"`.
+- Delivery confirmation: `GET /v2/messages/{id}` can 404 even on accepted messages — confirm via `GET /v2/detail_records?filter[record_type]=messaging` instead.
+
 ## Asking Questions (only when truly blocked)
 
 - Ask clarifying questions **before** starting only when genuinely blocked: a missing secret you cannot retrieve, irreversible risk with no authority, or a true fork with no precedent.
