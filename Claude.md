@@ -26,7 +26,8 @@ Use the blocking format only for real blockers (missing secret you can't retriev
 ===
 ```
 
-- Bold+underline **every** numbered line (`**__…__**`). Continuous numbering `1…n`. Minimal prose before the block.
+- Bold+underline **every** numbered line (`**__…__**`). Minimal prose before the block.
+- **Numbering is continuous across the whole block, even when questions span multiple categories, subjects, or topics — never restart per section.** Group one: 1, 2; group two: 3, 4 (not 1, 2 again).
 - Never append `(yes/no)` — it's implied. Never pad with "I'll do it in seconds." Prefer one ask.
 
 ## Notifications
