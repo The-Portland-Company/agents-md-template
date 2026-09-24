@@ -261,7 +261,7 @@ SES_CONFIGURATION_SET
 ## Skills
 
 - Prefer a matching **Skill** over ad-hoc work. Invoke via the Skill tool; when the human types `/<skill-name>`, run that skill. Only use skills that are actually listed — don't guess names, and if none fits, do the work directly.
-- Screenshots: **playwright skill only** (no remote browser MCP). Immediately `Read` the image so it renders inline.
+- Screenshots: drive the browser by the global fallback order in `~/.claude/AGENTS.md` → **Browser** (Bartok → Cloudflare Browser Run → local Playwright headless → BrowserOS headless → the main browser). Immediately `Read` the image so it renders inline.
 - Domain runbooks live under `~/.claude/agent-docs/` — read one only when that topic is in scope (GitHub, Railway, Cloudflare, Supabase, test email/OTP, Forge, App Store). Never `railway login` / `wrangler login` / `gcloud auth login` yourself — follow the runbook.
 
 ## Tasks — Focus Forge (Claude wiring)
